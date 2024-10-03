@@ -18,14 +18,14 @@ export const login256 = (req: Request, res: Response) => {
 };
 
 export const login512 = (req: Request, res: Response) => {
-    const {username, password} = req.body;
+    const {username, password, secretKey} = req.body;
 
     const user = users.find(user => user.username === username && user.password === password);
 
     if(!user) {
         res.status(401).json({message: "Username atau password salah"});
     } else {
-        const token = createToken(user, secretKey512, 'HS512');
+        const token = createToken(user, secretKey, 'HS512');
 
         res.status(200).json({token});
     }
